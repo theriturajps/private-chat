@@ -196,18 +196,22 @@
 			const messageDiv = document.createElement('div');
 			const isOwnMessage = data.username === currentUsername;
 
+			// Convert timestamp to readable format
+			const time = new Date(data.timestamp).toLocaleTimeString();
+
 			messageDiv.className = `flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`;
 			messageDiv.innerHTML = `
-                <div class="max-w-[75%] rounded-lg px-3 py-2 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'}">
-                    ${!isOwnMessage ? `<div class="text-xs font-medium mb-1">${data.username}</div>` : ''}
-                    <div class="text-sm break-words">${data.message}</div>
-                    <div class="text-xs mt-1 ${isOwnMessage ? 'text-blue-100' : 'text-gray-500'}">${new Date().toLocaleTimeString()}</div>
-                </div>
-            `;
+        <div class="max-w-[75%] rounded-lg px-3 py-2 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'}">
+            ${!isOwnMessage ? `<div class="text-xs font-medium mb-1">${data.username}</div>` : ''}
+            <div class="text-sm break-words">${data.message}</div>
+            <div class="text-xs mt-1 ${isOwnMessage ? 'text-blue-100' : 'text-gray-500'}">${time}</div>
+        </div>
+    	`;
 
 			messagesContainer.appendChild(messageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
 		}
+
 
 		function appendSystemMessage(message) {
 			const messagesContainer = document.getElementById('messagesContainer');
