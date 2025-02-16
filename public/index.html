@@ -118,25 +118,23 @@
 		</div>
 
 		<!-- Room Info Modal -->
-		<div id="roomInfoModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 p-4 z-50">
-			<div class="bg-white rounded-lg max-w-xs w-full p-4">
-				<h3 class="text-lg font-medium mb-3">Room Information</h3>
-				<div class="space-y-2 mb-4">
-					<div class="bg-gray-50 p-2 rounded">
-						<p class="text-xs font-medium text-gray-500 mb-1">Room ID</p>
-						<p id="roomIdDisplay" class="text-sm text-gray-800 break-all"></p>
+		<div id="roomInfoModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 p-3 z-50">
+			<div class="bg-white rounded-lg max-w-xs w-full p-3">
+				<h3 class="text-base font-medium mb-2">Room Info</h3>
+				<div class="space-y-2 mb-3 text-sm">
+					<div class="bg-gray-100 p-2 rounded">
+						<p class="text-xs font-medium text-gray-500">Room ID</p>
+						<p id="roomIdDisplay" class="text-gray-800 break-all"></p>
 					</div>
-					<div class="bg-gray-50 p-2 rounded">
-						<p class="text-xs font-medium text-gray-500 mb-1">Room Code</p>
-						<p id="roomCodeDisplay" class="text-sm text-gray-800 break-all"></p>
+					<div class="bg-gray-100 p-2 rounded">
+						<p class="text-xs font-medium text-gray-500">Room Code</p>
+						<p id="roomCodeDisplay" class="text-gray-800 break-all"></p>
 					</div>
 				</div>
-				<button onclick="hideRoomInfo()"
-					class="w-full py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-					Close
-				</button>
+				<button onclick="hideRoomInfo()" class="w-full py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Close</button>
 			</div>
 		</div>
+
 
 		<!-- Messages Container -->
 		<div id="messagesContainer" class="flex-1 overflow-y-auto p-3 space-y-2 messages-container">
