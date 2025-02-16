@@ -131,7 +131,8 @@
 						<p id="roomCodeDisplay" class="text-gray-800 break-all"></p>
 					</div>
 				</div>
-				<button onclick="hideRoomInfo()" class="w-full py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Close</button>
+				<button onclick="hideRoomInfo()"
+					class="w-full py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Close</button>
 			</div>
 		</div>
 
@@ -155,7 +156,7 @@
 	</div>
 
 	<script>
-		const socket = io('http://localhost:3000');
+		const socket = io('https://private-chat.koyeb.app');
 		let currentRoom = null;
 		let currentUsername = null;
 		let typingTimeout = null;
