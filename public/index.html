@@ -107,7 +107,7 @@
 						<h2 id="roomHeader" class="font-medium text-gray-800 text-base"></h2>
 						<div class="flex items-center space-x-2">
 							<span id="onlineUsers" class="text-xs text-gray-500"></span>
-							<div id="typingIndicator" class="hidden text-xs text-gray-500"></div>
+							<span id="typingIndicator" class="hidden text-xs text-gray-500 typing-indicator"></span>
 						</div>
 					</div>
 				</div>
@@ -135,7 +135,6 @@
 					class="w-full py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Close</button>
 			</div>
 		</div>
-
 
 		<!-- Messages Container -->
 		<div id="messagesContainer" class="flex-1 overflow-y-auto p-3 space-y-2 messages-container">
@@ -217,13 +216,12 @@
 
 		socket.on('userTyping', (data) => {
 			const typingIndicator = document.getElementById('typingIndicator');
-			if (data.isTyping) {
+			if (data.isTyping && data.username !== currentUsername) {
 				typingIndicator.textContent = `${data.username} is typing`;
 				typingIndicator.classList.remove('hidden');
-				typingIndicator.classList.add('typing-indicator');
 			} else {
 				typingIndicator.classList.add('hidden');
-				typingIndicator.classList.remove('typing-indicator');
+				typingIndicator.textContent = '';
 			}
 		});
 
@@ -267,12 +265,12 @@
 
 			messageDiv.className = `flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`;
 			messageDiv.innerHTML = `
-        <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'}">
-          ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5">${data.username}</div>` : ''}
-          <div class="text-sm break-words">${data.message}</div>
-          <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-100' : 'text-gray-500'}">${time}</div>
-        </div>
-      `;
+                <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'}">
+                    ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5">${data.username}</div>` : ''}
+                    <div class="text-sm break-words">${data.message}</div>
+                    <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-100' : 'text-gray-500'}">${time}</div>
+                </div>
+            `;
 
 			messagesContainer.appendChild(messageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -283,10 +281,10 @@
 			const messageDiv = document.createElement('div');
 			messageDiv.className = 'flex justify-center';
 			messageDiv.innerHTML = `
-        <div class="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-          ${message}
-        </div>
-      `;
+                <div class="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                    ${message}
+                </div>
+            `;
 			messagesContainer.appendChild(messageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
 		}
@@ -332,31 +330,49 @@
 
 			messageInput.value = '';
 			messageInput.focus();
+
+			// Clear typing indicator when sending message
+			if (typingTimeout) {
+				clearTimeout(typingTimeout);
+				socket.emit('typing', {
+					roomId: currentRoom,
+					isTyping: false
+				});
+			}
 		}
 
 		function handleTyping() {
 			if (typingTimeout) clearTimeout(typingTimeout);
 
-			socket.emit('typing', { roomId: currentRoom, isTyping: true });
+			socket.emit('typing', {
+				roomId: currentRoom,
+				isTyping: true
+			});
 
 			typingTimeout = setTimeout(() => {
-				socket.emit('typing', { roomId: currentRoom, isTyping: false });
+				socket.emit('typing', {
+					roomId: currentRoom,
+					isTyping: false
+				});
 			}, 1000);
 		}
 
 		function leaveRoom() {
 			if (confirm('Are you sure you want to leave this room?')) {
-				socket.emit('leaveRoom', { roomId: currentRoom, username: currentUsername });
+				socket.emit('leaveRoom', {
+					roomId: currentRoom,
+					username: currentUsername
+				});
 				resetToLogin();
 			}
 		}
 
 		// Event Listeners
+		document.getElementById('messageInput').addEventListener('input', handleTyping);
+
 		document.getElementById('messageInput').addEventListener('keypress', (e) => {
 			if (e.key === 'Enter') {
 				sendMessage();
-			} else {
-				handleTyping();
 			}
 		});
 
@@ -366,7 +382,10 @@
 		// Handle window close
 		window.addEventListener('beforeunload', () => {
 			if (currentRoom) {
-				socket.emit('leaveRoom', { roomId: currentRoom, username: currentUsername });
+				socket.emit('leaveRoom', {
+					roomId: currentRoom,
+					username: currentUsername
+				});
 			}
 		});
 	</script>
