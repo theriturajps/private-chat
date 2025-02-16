@@ -14,16 +14,16 @@
 		}
 
 		.messages-container::-webkit-scrollbar-track {
-			background: #f1f1f1;
+			background: #222222;
 		}
 
 		.messages-container::-webkit-scrollbar-thumb {
-			background: #888;
+			background: #444444;
 			border-radius: 2px;
 		}
 
 		.messages-container::-webkit-scrollbar-thumb:hover {
-			background: #555;
+			background: #555555;
 		}
 
 		.typing-indicator::after {
@@ -47,20 +47,20 @@
 	</style>
 </head>
 
-<body class="bg-gradient-to-br from-blue-500 to-purple-600">
+<body class="bg-gradient-to-br from-gray-900 to-gray-800">
 	<!-- Login Section -->
 	<div id="loginSection" class="min-h-screen flex items-center justify-center p-2 sm:p-4">
-		<div class="w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden">
+		<div class="w-full max-w-sm bg-[#111111] rounded-lg shadow-lg overflow-hidden border border-gray-800">
 			<div class="p-4">
-				<h1 class="text-xl font-bold text-gray-800 mb-4">Seal Chat</h1>
+				<h1 class="text-xl font-bold text-gray-100 mb-4">Seal Chat</h1>
 				<!-- Tab Navigation -->
-				<div class="flex border-b mb-4">
+				<div class="flex border-b border-gray-800 mb-4">
 					<button onclick="showTab('create')" id="createTab"
-						class="flex-1 py-2 text-sm font-medium transition focus:outline-none">
+						class="flex-1 py-2 text-sm font-medium text-gray-300 transition focus:outline-none">
 						Create Room
 					</button>
 					<button onclick="showTab('join')" id="joinTab"
-						class="flex-1 py-2 text-sm font-medium transition focus:outline-none">
+						class="flex-1 py-2 text-sm font-medium text-gray-300 transition focus:outline-none">
 						Join Room
 					</button>
 				</div>
@@ -68,11 +68,11 @@
 				<!-- Create Room Form -->
 				<div id="createRoomTab" class="space-y-3">
 					<input type="text" id="username" placeholder="Your username" maxlength="20"
-						class="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+						class="w-full px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 					<input type="text" id="roomName" placeholder="Room name" maxlength="30"
-						class="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+						class="w-full px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 					<button onclick="createRoom()"
-						class="w-full py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+						class="w-full py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">
 						Create Room
 					</button>
 				</div>
@@ -80,13 +80,13 @@
 				<!-- Join Room Form -->
 				<div id="joinRoomTab" class="hidden space-y-3">
 					<input type="text" id="joinUsername" placeholder="Your username" maxlength="20"
-						class="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+						class="w-full px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 					<input type="text" id="roomId" placeholder="Room ID"
-						class="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+						class="w-full px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 					<input type="text" id="roomCode" placeholder="Room code"
-						class="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+						class="w-full px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 					<button onclick="joinRoom()"
-						class="w-full py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+						class="w-full py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900">
 						Join Room
 					</button>
 				</div>
@@ -95,40 +95,40 @@
 	</div>
 
 	<!-- Chat Section -->
-	<div id="chatSection" class="hidden h-screen flex flex-col bg-white">
+	<div id="chatSection" class="hidden h-screen flex flex-col bg-[#111111]">
 		<!-- Chat Header -->
-		<div class="bg-white border-b px-3 py-2 shadow-sm">
+		<div class="bg-[#111111] border-b border-gray-800 px-3 py-2 shadow-sm">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center space-x-3">
-					<button onclick="showRoomInfo()" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+					<button onclick="showRoomInfo()" class="text-gray-400 hover:text-gray-200 focus:outline-none">
 						<i class="fas fa-info-circle"></i>
 					</button>
 					<div>
-						<h2 id="roomHeader" class="font-medium text-gray-800 text-base"></h2>
+						<h2 id="roomHeader" class="font-medium text-gray-100 text-base"></h2>
 						<div class="flex items-center space-x-2">
-							<span id="onlineUsers" class="text-xs text-gray-500"></span>
-							<span id="typingIndicator" class="hidden text-xs text-gray-500 typing-indicator"></span>
+							<span id="onlineUsers" class="text-xs text-gray-400"></span>
+							<span id="typingIndicator" class="hidden text-xs text-gray-400 typing-indicator"></span>
 						</div>
 					</div>
 				</div>
-				<button onclick="leaveRoom()" class="text-red-500 hover:text-red-600 focus:outline-none">
+				<button onclick="leaveRoom()" class="text-red-400 hover:text-red-300 focus:outline-none">
 					<i class="fas fa-sign-out-alt"></i>
 				</button>
 			</div>
 		</div>
 
 		<!-- Room Info Modal -->
-		<div id="roomInfoModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 p-3 z-50">
-			<div class="bg-white rounded-lg max-w-xs w-full p-3">
-				<h3 class="text-base font-medium mb-2">Room Info</h3>
+		<div id="roomInfoModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/80 p-3 z-50">
+			<div class="bg-[#111111] rounded-lg max-w-xs w-full p-3 border border-gray-800">
+				<h3 class="text-base font-medium mb-2 text-gray-100">Room Info</h3>
 				<div class="space-y-2 mb-3 text-sm">
-					<div class="bg-gray-100 p-2 rounded">
-						<p class="text-xs font-medium text-gray-500">Room ID</p>
-						<p id="roomIdDisplay" class="text-gray-800 break-all"></p>
+					<div class="bg-gray-900 p-2 rounded border border-gray-800">
+						<p class="text-xs font-medium text-gray-400">Room ID</p>
+						<p id="roomIdDisplay" class="text-gray-200 break-all"></p>
 					</div>
-					<div class="bg-gray-100 p-2 rounded">
-						<p class="text-xs font-medium text-gray-500">Room Code</p>
-						<p id="roomCodeDisplay" class="text-gray-800 break-all"></p>
+					<div class="bg-gray-900 p-2 rounded border border-gray-800">
+						<p class="text-xs font-medium text-gray-400">Room Code</p>
+						<p id="roomCodeDisplay" class="text-gray-200 break-all"></p>
 					</div>
 				</div>
 				<button onclick="hideRoomInfo()"
@@ -142,12 +142,12 @@
 		</div>
 
 		<!-- Message Input -->
-		<div class="border-t p-2">
+		<div class="border-t border-gray-800 p-2">
 			<div class="flex items-center space-x-2">
 				<input type="text" id="messageInput" placeholder="Type a message..."
-					class="flex-1 px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+					class="flex-1 px-3 py-2 text-sm bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-100 placeholder-gray-500">
 				<button onclick="sendMessage()"
-					class="p-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+					class="p-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">
 					<i class="fas fa-paper-plane"></i>
 				</button>
 			</div>
@@ -168,13 +168,13 @@
 			const joinRoomTab = document.getElementById('joinRoomTab');
 
 			if (tab === 'create') {
-				createTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
-				joinTab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+				createTab.classList.add('text-blue-400', 'border-b-2', 'border-blue-500');
+				joinTab.classList.remove('text-blue-400', 'border-b-2', 'border-blue-500');
 				createRoomTab.classList.remove('hidden');
 				joinRoomTab.classList.add('hidden');
 			} else {
-				joinTab.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
-				createTab.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+				joinTab.classList.add('text-blue-400', 'border-b-2', 'border-blue-500');
+				createTab.classList.remove('text-blue-400', 'border-b-2', 'border-blue-500');
 				joinRoomTab.classList.remove('hidden');
 				createRoomTab.classList.add('hidden');
 			}
@@ -265,10 +265,10 @@
 
 			messageDiv.className = `flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`;
 			messageDiv.innerHTML = `
-                <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800'}">
-                    ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5">${data.username}</div>` : ''}
+                <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-100'}">
+                    ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5 text-gray-300">${data.username}</div>` : ''}
                     <div class="text-sm break-words">${data.message}</div>
-                    <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-100' : 'text-gray-500'}">${time}</div>
+                    <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-200' : 'text-gray-400'}">${time}</div>
                 </div>
             `;
 
@@ -281,7 +281,7 @@
 			const messageDiv = document.createElement('div');
 			messageDiv.className = 'flex justify-center';
 			messageDiv.innerHTML = `
-                <div class="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                <div class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded-full">
                     ${message}
                 </div>
             `;
