@@ -3,7 +3,18 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 const app = express();
-app.use(express.static('public'));
+
+app.use((req, res, next) => {
+	const invalidPaths = ["/", "/d"]; // Add more paths if needed
+	if (invalidPaths.includes(req.path)) {
+		return res.status(400).send("<h1 style='color:red;text-align:center;'>This is a Server, not a Webpage!!!</h1>");
+	}
+	next();
+});
+
+app.use((req, res) => {
+	res.status(404).send("<h1 style='color:red;text-align:center;'>This is a Server, not a Webpage!!!</h1>");
+});
 
 const server = http.createServer(app);
 const io = new Server(server, {
