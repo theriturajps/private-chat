@@ -4,16 +4,36 @@ const { Server } = require('socket.io');
 
 const app = express();
 
+const errorPage = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+    <div class="bg-gray-800 text-center p-4 rounded-lg shadow-lg border border-gray-700 w-72">
+        <h1 class="text-xl font-bold text-red-500">Error 404</h1>
+        <p class="text-sm text-gray-300 mt-1">This is a server, not a webpage.</p>
+        <p class="text-xs text-gray-500 mt-1">Invalid request received.</p>
+        <a href="https://github.com/theriturajps" class="mt-3 bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded-md text-xs transition inline-block">Github</a>
+    </div>
+</body>
+</html>
+`;
+
 app.use((req, res, next) => {
-	const invalidPaths = ["/", "/d"]; // Add more paths if needed
+	const invalidPaths = ["/"];
 	if (invalidPaths.includes(req.path)) {
-		return res.status(400).send("<h1 style='color:red;text-align:center;'>This is a Server, not a Webpage!!!</h1>");
+		return res.status(400).send(errorPage);
 	}
 	next();
 });
 
 app.use((req, res) => {
-	res.status(404).send("<h1 style='color:red;text-align:center;'>This is a Server, not a Webpage!!!</h1>");
+	res.status(404).send(errorPage);
 });
 
 const server = http.createServer(app);
