@@ -183,8 +183,8 @@
 			document.getElementById('loginSection').classList.add('hidden');
 			document.getElementById('chatSection').classList.remove('hidden');
 			document.getElementById('roomHeader').textContent = data.roomName;
-			document.getElementById('roomIdDisplay').textContent = `Room ID: ${data.roomId}`;
-			document.getElementById('roomCodeDisplay').textContent = `Room Code: ${data.roomCode}`;
+			document.getElementById('roomIdDisplay').innerHTML = `<strong>Room ID</strong>: ${data.roomId}`;
+			document.getElementById('roomCodeDisplay').innerHTML = `<strong>Room Code</strong>: ${data.roomCode}`;
 			currentRoom = data.roomId;
 			updateOnlineUsers(data.users);
 		}

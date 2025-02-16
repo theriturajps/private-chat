@@ -20,15 +20,22 @@ const rooms = new Map();
 
 // Generate random alphanumeric code
 function generateCode(length = 6) {
-	return crypto.randomBytes(length)
-		.toString('base64')
-		.replace(/[^a-zA-Z0-9]/g, '')
-		.substring(0, length);
+	let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let code = '';
+	for (let i = 0; i < length; i++) {
+		code += chars.charAt(Math.floor(Math.random() * chars.length));
+	}
+	return code;
 }
 
 // Generate unique room ID
-function generateRoomId() {
-	return crypto.randomBytes(4).toString('hex');
+function generateRoomId(length = 8) {
+	let chars = 'abcdef0123456789';
+	let roomId = '';
+	for (let i = 0; i < length; i++) {
+		roomId += chars.charAt(Math.floor(Math.random() * chars.length));
+	}
+	return roomId;
 }
 
 // Clean up expired rooms
