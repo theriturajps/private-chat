@@ -240,6 +240,12 @@
 			document.getElementById('roomInfoModal').classList.add('hidden');
 		}
 
+		function escapeHTML(text) {
+			const div = document.createElement('div');
+			div.textContent = text;
+			return div.innerHTML;
+		}
+
 		// Socket event listeners
 		socket.on('roomCreated', (data) => {
 			showChatSection(data);
@@ -321,12 +327,12 @@
 
 			messageDiv.className = `flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`;
 			messageDiv.innerHTML = `
-                <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-100'}">
-                    ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5 text-gray-300">${data.username}</div>` : ''}
-                    <div class="text-sm break-words">${data.message}</div>
-                    <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-200' : 'text-gray-400'}">${time}</div>
-                </div>
-            `;
+      <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-100'}">
+        ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5 text-gray-300">${escapeHTML(data.username)}</div>` : ''}
+        <div class="text-sm break-words">${escapeHTML(data.message)}</div>
+        <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-200' : 'text-gray-400'}">${time}</div>
+      </div>
+    `;
 
 			messagesContainer.appendChild(messageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -337,10 +343,10 @@
 			const messageDiv = document.createElement('div');
 			messageDiv.className = 'flex justify-center';
 			messageDiv.innerHTML = `
-                <div class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded-full">
-                    ${message}
-                </div>
-            `;
+      <div class="text-[10px] text-gray-400 bg-gray-800 px-2 py-0.5 rounded-full">
+        ${escapeHTML(message)}
+      </div>
+    `;
 			messagesContainer.appendChild(messageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
 		}

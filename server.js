@@ -152,6 +152,11 @@ io.on('connection', (socket) => {
 		const room = rooms.get(roomId);
 		if (!room) return;
 
+		// Basic HTML content check (optional)
+		if (/<script.*?>.*?<\/script>/gi.test(message)) {
+			return socket.emit('error', 'HTML content not allowed');
+		}
+
 		const messageData = {
 			username: currentUsername,
 			message,
