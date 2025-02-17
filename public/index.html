@@ -130,6 +130,15 @@
 						<p class="text-xs font-medium text-gray-400">Room Code</p>
 						<p id="roomCodeDisplay" class="text-gray-200 break-all"></p>
 					</div>
+					<div class="bg-gray-900 p-2 rounded border border-gray-800">
+						<div class="flex justify-between items-center mb-1">
+							<p class="text-xs font-medium text-gray-400">Share URL</p>
+							<button onclick="copyShareUrl()" class="text-xs text-blue-400 hover:text-blue-300 focus:outline-none">
+								<i class="fas fa-copy mr-1"></i>Copy
+							</button>
+						</div>
+						<p id="shareUrlDisplay" class="text-gray-200 break-all text-xs"></p>
+					</div>
 				</div>
 				<button onclick="hideRoomInfo()"
 					class="w-full py-1.5 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Close</button>
@@ -177,6 +186,44 @@
 				createTab.classList.remove('text-blue-400', 'border-b-2', 'border-blue-500');
 				joinRoomTab.classList.remove('hidden');
 				createRoomTab.classList.add('hidden');
+			}
+		}
+
+		// URL handling functions
+		function generateShareUrl(roomId, roomCode) {
+			const url = new URL(window.location.href);
+			url.searchParams.set('roomId', roomId);
+			url.searchParams.set('roomCode', roomCode);
+			return url.toString();
+		}
+
+		function truncateUrl(url) {
+			const maxLength = 45;
+			return url.length > maxLength ? url.substring(0, maxLength) + '...' : url;
+		}
+
+		function copyShareUrl() {
+			const roomId = document.getElementById('roomIdDisplay').textContent;
+			const roomCode = document.getElementById('roomCodeDisplay').textContent;
+			const fullUrl = generateShareUrl(roomId, roomCode);
+
+			navigator.clipboard.writeText(fullUrl).then(() => {
+				alert('Share URL copied to clipboard!');
+			}).catch(() => {
+				alert('Failed to copy URL');
+			});
+		}
+
+		// Auto-fill room details from URL parameters
+		function autoFillFromUrl() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const roomId = urlParams.get('roomId');
+			const roomCode = urlParams.get('roomCode');
+
+			if (roomId && roomCode) {
+				showTab('join');
+				document.getElementById('roomId').value = roomId;
+				document.getElementById('roomCode').value = roomCode;
 			}
 		}
 
@@ -241,6 +288,11 @@
 			document.getElementById('roomHeader').textContent = data.roomName;
 			document.getElementById('roomIdDisplay').textContent = data.roomId;
 			document.getElementById('roomCodeDisplay').textContent = data.roomCode;
+
+			// Generate and display share URL
+			const shareUrl = generateShareUrl(data.roomId, data.roomCode);
+			document.getElementById('shareUrlDisplay').textContent = truncateUrl(shareUrl);
+
 			currentRoom = data.roomId;
 			updateOnlineUsers(data.users);
 		}
@@ -378,6 +430,7 @@
 
 		// Initialize
 		showTab('create');
+		autoFillFromUrl();
 
 		// Handle window close
 		window.addEventListener('beforeunload', () => {
