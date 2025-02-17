@@ -154,7 +154,7 @@ io.on('connection', (socket) => {
 
 		// Basic HTML content check (optional)
 		if (/<script.*?>.*?<\/script>/gi.test(message)) {
-			return socket.emit('error', 'HTML content not allowed');
+			return socket.emit('error', 'script content not allowed');
 		}
 
 		const messageData = {
