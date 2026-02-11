@@ -169,7 +169,7 @@
 	</div>
 
 	<script>
-		const socket = io('https://private-chat.koyeb.app');
+		const socket = io('http://localhost:3000');
 		let currentRoom = null;
 		let currentUsername = null;
 		let typingTimeout = null;
@@ -328,7 +328,7 @@
 
 			messageDiv.className = `flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`;
 			messageDiv.innerHTML = `
-      <div class="max-w-[85%] rounded-lg px-3 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-100'}">
+      <div class="max-w-[85%] rounded-lg px-2 py-1.5 ${isOwnMessage ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-100'}">
         ${!isOwnMessage ? `<div class="text-xs font-medium mb-0.5 text-gray-300">${escapeHTML(data.username)}</div>` : ''}
         <div class="text-sm break-words">${escapeHTML(data.message)}</div>
         <div class="text-[10px] mt-0.5 ${isOwnMessage ? 'text-blue-200' : 'text-gray-400'}">${time}</div>
