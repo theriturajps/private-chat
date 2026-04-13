@@ -109,7 +109,7 @@ io.on('connection', (socket) => {
 			socket.emit('error', 'Invalid room code');
 			return;
 		}
-		if (room.users.length >= 6) {
+		if (room.users.length >= 2) {
 			socket.emit('error', 'Room is full');
 			return;
 		}

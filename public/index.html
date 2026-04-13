@@ -56,9 +56,8 @@
 	<div id="loginSection" class="min-h-screen flex items-center justify-center p-2">
 
 		<div class="w-full max-w-xs bg-white rounded-lg shadow-md">
-			<div class="p-4">
-				<h1 class="text-lg font-semibold text-gray-700 mb-3">Seal Chat</h1>
-				<div class="flex border-b border-gray-200 mb-3">
+			<div class="p-2">
+				<div class="flex border-b border-gray-200 mb-2">
 					<button onclick="showTab('create')" id="createTab"
 						class="flex-1 py-1.5 text-sm font-medium text-gray-600 transition focus:outline-none">
 						Create Room
@@ -169,7 +168,7 @@
 	</div>
 
 	<script>
-		const socket = io('https://shhchat.onrender.com');
+		const socket = io('http://localhost:3000');
 		let currentRoom = null;
 		let currentUsername = null;
 		let typingTimeout = null;
@@ -317,7 +316,7 @@
 		}
 
 		function updateOnlineUsers(users) {
-			document.getElementById('onlineUsers').textContent = `${users.length}/6 online`;
+			document.getElementById('onlineUsers').textContent = `${users.length}/2 online`;
 		}
 
 		function appendMessage(data) {
