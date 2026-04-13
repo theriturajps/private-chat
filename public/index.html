@@ -51,11 +51,11 @@
 	</style>
 </head>
 
-<body class="bg-gradient-to-br from-blue-50 to-gray-100">
+<body class="bg-white">
 	<!-- Login Section -->
 	<div id="loginSection" class="min-h-screen flex items-center justify-center p-2">
 
-		<div class="w-full max-w-xs bg-white rounded-lg shadow-md">
+		<div class="w-full max-w-xs bg-white rounded-lg border border-gray-200">
 			<div class="p-2">
 				<div class="flex border-b border-gray-200 mb-2">
 					<button onclick="showTab('create')" id="createTab"
@@ -139,7 +139,7 @@
 
 	<!-- Room Info Modal -->
 	<div id="roomInfoModal" class="hidden fixed inset-0 flex items-center justify-center bg-black/50 p-3 z-50">
-		<div class="bg-white rounded-lg max-w-xs w-full p-3 shadow-lg">
+		<div class="bg-white rounded-lg max-w-xs w-full p-3 border border-gray-200">
 			<h3 class="text-sm font-medium mb-2 text-gray-700">Room Info</h3>
 			<div class="space-y-2 mb-3">
 				<div class="bg-gray-50 p-2 rounded border border-gray-200">
@@ -249,8 +249,6 @@
 		// Socket event listeners
 		socket.on('roomCreated', (data) => {
 			showChatSection(data);
-			navigator.clipboard.writeText(`Room ID: ${data.roomId}\nRoom Code: ${data.roomCode}`);
-			alert('Room created! Room ID and Code have been copied to your clipboard.');
 		});
 
 		socket.on('joinedRoom', (data) => {
